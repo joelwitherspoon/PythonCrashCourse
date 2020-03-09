@@ -1,0 +1,5 @@
+In Python you can declare lists and dictionaries
+In Python you can declare classes
+In Python you can read and print files
+In Python you can declare key value pairs
+In Python you can loops
