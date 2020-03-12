@@ -18,5 +18,3 @@ class Die():
         """Return a random vlaue between 1 and number of sides"""
         
         return randint(1,self.num_sides)
-    
-            
