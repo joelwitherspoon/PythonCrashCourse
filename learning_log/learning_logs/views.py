@@ -4,7 +4,7 @@ from django.urls import reverse
 
 
 
-from .models import Topic
+from .models import Topic,Entry
 from .forms import TopicForm,EntryForm
 
 
@@ -52,11 +52,35 @@ def new_entry(request, topic_id):
         #POST data submitted; process data
         form = EntryForm(data=request.POST)
         if form.is_valid():
-            new_entry = form.save(commit=false)
+            new_entry = form.save(commit=False)
             new_entry.topic = topic
             new_entry.save()
-            return HttpResponseRedirect(reverse('learning_logs:topic', \
+            return HttpResponseRedirect(reverse('learning_logs:topic',
                                                 args=[topic_id]))
             
-    context = {'topic':topic,'form':forms}
+    context = {'topic':topic,'form':form}
     return render(request, 'learning_logs/new_entry.html',context)
+
+def edit_entry(request,entry_id):
+    """Edit an existing entry"""
+    entry = Entry.objects.get(id=entry_id)
+    topic = entry.topic
+    
+    if request.method != 'POST':
+        #Initial request. Prefill form with current entry
+        form=EntryForm(instance=entry)
+    else:
+        #POST data submitted; process data.
+        form= EntryForm(instance=entry, data=request.POST)
+        if form.is_valid():
+            form.save( )
+            return HttpResponseRedirect(reverse('learning_logs:topic', 
+                                                args=[topic.id]))
+            
+    context = {'topic':topic,'form':form,'entry':entry}
+    return render(request,'learning_logs/edit_entry.html',context)
+    
+        
+        
+        
+        
