@@ -1,0 +1,27 @@
+{% extends "blogs/base.html" %}
+
+{% block content %}
+
+    <p>Post: {{ post }} </p>
+    
+    <ul>
+        {% if post %}
+        <li>
+            <p>
+                {{ post.title }}
+            </p>
+            <p>
+                {{ post.text }}
+            </p>
+            <p>
+                <a href="{% url 'blogs:edit_post' blogpost.id %}"> edit post </a>
+            </p>
+        </li>
+        {% else %}
+        <li>
+            <p>No entries for this topic yet</p>
+        </li>
+        {% endif %}
+    </ul>
+    
+{% endblock content %}
