@@ -15,9 +15,12 @@ urlpatterns = [
     #Single post listing
     path('posts/<int:blogpost_id>',views.post, name='post'),
     
-    #New entry page
+    #New post page
     path('new_post/',views.new_post,name='new_post'),
     
-     
+    #Edit post
+    path('edit_post/<int:blogpost_id>/', views.edit_post, name='edit_post')
+    
+    
     
     ]

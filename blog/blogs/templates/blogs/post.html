@@ -14,7 +14,7 @@
                 {{ post.text }}
             </p>
             <p>
-                <a href="{% url 'blogs:edit_post' blogpost.id %}"> edit post </a>
+                <a href="{% url 'blogs:edit_post' post.id  %}">Edit Post</a>
             </p>
         </li>
         {% else %}

@@ -8,5 +8,6 @@ class BlogPostForm(forms.ModelForm):
         model = BlogPost
         fields = ['title','text']
         labels = {'title': 'title','text':''}
+        widgets ={'text':forms.Textarea(attrs={'cols':80})}
         
 

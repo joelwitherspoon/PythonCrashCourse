@@ -4,7 +4,7 @@
 
     <p>Edit post</p>
     
-    <form action="{% url 'blogs:edit_post' blogpost.id %}" method='post'>
+    <form action="{% url 'blogs:post' post.id %}" method='post'>
         {% csrf_token %}
         {{form.as_p}}
         <button name="submit">save changes</button>

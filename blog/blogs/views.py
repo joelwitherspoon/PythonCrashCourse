@@ -37,4 +37,24 @@ def new_post(request):
     context = {'form':form}
     return render(request,'blogs/new_post.html',context)
 
+def edit_post(request,blogpost_id):
+    """Edit a post"""
+    post = BlogPost.objects.get(id=blogpost_id)
+    title = post.title
+    text = post.text
+
+    if request.method != 'POST':
+        "Initial request; pre-fill form with the current entry"
+        form = BlogPostForm(instance=post)
+    else:
+        """POST data submitted; process data"""
+        form = BlogPostForm(instance=post, data=request.POST)
+        if form.is_valid():
+            form.save(commit=False)
+            
+            return HttpResponseRedirect(reverse('blogs:post', args=[blogpost_id]))
     
+    context = {'post':post,'title':title,'text':text,'form':form }
+    return render(request, 'blogs/edit_post.html', context)
+    
+        
