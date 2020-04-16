@@ -1,14 +1,21 @@
 {% extends "blogs/base.html" %}
 
 {% block content %}
-
+    <script>
+        {% if messages %}
+            {%for message in messages %}
+                alert(message);
+            {%endfor%}
+        {%endif%}
+    </script>
     <p>Edit post</p>
     
-    <form action="{% url 'blogs:post' post.id %}" method='post'>
+    <form action="{% url 'blogs:edit_post' post.id %}" method='post'>
         {% csrf_token %}
         {{form.as_p}}
         <button name="submit">save changes</button>
     </form>
+
 
 
 

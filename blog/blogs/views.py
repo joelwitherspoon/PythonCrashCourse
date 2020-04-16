@@ -1,6 +1,9 @@
 from django.shortcuts import render
 from django.http import HttpResponseRedirect
 from django.urls import reverse
+
+
+
 # Create your views here.
 
 from .models import BlogPost
@@ -50,11 +53,16 @@ def edit_post(request,blogpost_id):
         """POST data submitted; process data"""
         form = BlogPostForm(instance=post, data=request.POST)
         if form.is_valid():
-            form.save(commit=False)
-            
-            return HttpResponseRedirect(reverse('blogs:post', args=[blogpost_id]))
+            form.title = title
+            form.text = text
+            form.save()
+           
+            return HttpResponseRedirect(reverse('blogs:post', args=[post.id]))
     
-    context = {'post':post,'title':title,'text':text,'form':form }
+    context = {'post':post,
+               'title':title,
+               'text':text,
+               'form':form }
     return render(request, 'blogs/edit_post.html', context)
     
         
