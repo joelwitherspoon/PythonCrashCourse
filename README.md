@@ -11,9 +11,10 @@ Consult https://ehmatthes.github.io/pcc/  for first edition help and https://ehm
 
 My BOM for this work is:
 
-alabaster==0.7.12
+alabaster==0.7.12Note: you may need to restart the kernel to use updated packages.
 anaconda-client==1.7.2
 anaconda-navigator==1.9.12
+
 anaconda-project==0.8.3
 appdirs==1.4.3
 argh==0.26.2
@@ -46,7 +47,6 @@ click==7.1.1
 cloudpickle==1.3.0
 clyent==1.2.2
 colorama==0.4.3
-Note: you may need to restart the kernel to use updated packages.
 coloredlogs==14.0
 comtypes==1.1.7
 conda==4.8.3
@@ -262,3 +262,11 @@ xmltodict==0.12.0
 yapf==0.28.0
 zict==2.0.0
 zipp==2.2.0
+
+                                                            **NOTES**
+
+__**HOSTS**__
+If you want to experiment with a friendly domain name instead of using localhosts:8000, update your hosts file using the following syntax for example: joelw  127.0.0.1. That will resolve localhost to joelw. You'll still need to type the port number at the end.
+
+__**DJANGO**__
+The book uses an older version and **django.contrib.auth.views import login** has been depricated. Instead, use  **django.contrib.auth.views import LoginView**
