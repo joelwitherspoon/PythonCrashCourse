@@ -63,12 +63,15 @@ def new_entry(request, topic_id):
     else:
         #POST data submitted; process data
         form = EntryForm(data=request.POST)
-        if form.is_valid():
+        #Chapter 19 -4 Protecting new_entry
+        if form.is_valid() and (topic.owner == request.user):
             new_entry = form.save(commit=False)
             new_entry.topic = topic
             new_entry.save()
             return HttpResponseRedirect(reverse('learning_logs:topic',
                                                 args=[topic_id]))
+        else:
+            return Http404
             
     context = {'topic':topic,'form':form}
     return render(request, 'learning_logs/new_entry.html',context)
