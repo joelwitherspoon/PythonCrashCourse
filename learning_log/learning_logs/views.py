@@ -4,7 +4,7 @@ from django.urls import reverse
 from django.contrib.auth.decorators import login_required
 
 
-
+from users.check_topic_owner import check_topic_owner
 from .models import Topic,Entry
 from .forms import TopicForm,EntryForm
 
@@ -27,8 +27,8 @@ def topic(request,topic_id):
     """Show singular topic"""
     topic = Topic.objects.get(id=topic_id)
 	#Make sure the topic belongs to the current user.
-    if topic.owner != request.user: 
-        raise Http404
+    #Chapter 19 -3 refactoring
+    check_topic_owner(topic.owner,request.user)
 
     entries = topic.entry_set.order_by('-date_added')
     context = {'topic':topic,'entries':entries}
@@ -78,8 +78,8 @@ def edit_entry(request,entry_id):
     """Edit an existing entry"""
     entry = Entry.objects.get(id=entry_id)
     topic = entry.topic
-    if topic.owner != request.user: 
-        raise Http404
+    #Chapter 19 -3 refactoring
+    check_topic_owner(topic.owner,request.user)
     
     if request.method != 'POST':
         #Initial request. Prefill form with current entry
@@ -91,6 +91,7 @@ def edit_entry(request,entry_id):
             form.save( )
             return HttpResponseRedirect(reverse('learning_logs:topic', 
                                                 args=[topic.id]))
+        
             
     context = {'topic':topic,'form':form,'entry':entry}
     return render(request,'learning_logs/edit_entry.html',context)
