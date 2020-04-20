@@ -90,7 +90,7 @@ def edit_entry(request,entry_id):
     else:
         #POST data submitted; process data.
         form= EntryForm(instance=entry, data=request.POST)
-        if form.is_valid():
+        if form.is_valid() and (topic.owner == request.user):
             form.save( )
             return HttpResponseRedirect(reverse('learning_logs:topic', 
                                                 args=[topic.id]))
