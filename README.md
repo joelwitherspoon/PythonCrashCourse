@@ -265,6 +265,8 @@ xmltodict==0.12.0
 yapf==0.28.0
 zict==2.0.0
 zipp==2.2.0
+
+
                                                             **NOTES**
 
 __**HOSTS**__
@@ -275,3 +277,6 @@ The book uses an older version and **django.contrib.auth.views import login** ha
 
 __**BOOTSTRAP**__
 The book uses Bootstrap 3 which isn't the lastest Bootstrap version. Version 3 documentation can be found here: https://bootstrapdocs.com/v3.0.3/docs/components/#glyphicons
+
+__**HEROKU**__
+Heroku will send you to the browser to login and return that auth to the CLI. Set the buildpack at heroku create --buildpack heroku/python
