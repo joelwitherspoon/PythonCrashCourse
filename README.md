@@ -11,10 +11,9 @@ Consult https://ehmatthes.github.io/pcc/  for first edition help and https://ehm
 
 My BOM for this work is:
 
-alabaster==0.7.12Note: you may need to restart the kernel to use updated packages.
+alabaster==0.7.12
 anaconda-client==1.7.2
 anaconda-navigator==1.9.12
-
 anaconda-project==0.8.3
 appdirs==1.4.3
 argh==0.26.2
@@ -65,6 +64,8 @@ defusedxml==0.6.0
 diff-match-patch==20181111
 distlib==0.3.0
 distributed==2.12.0
+dj-database-url==0.5.0
+dj-static==0.0.6
 Django==3.0.4
 docutils==0.16
 entrypoints==0.3
@@ -78,6 +79,7 @@ future==0.18.2
 gevent==1.4.0
 glob2==0.7
 greenlet==0.4.15
+gunicorn==20.0.4
 h5py==2.10.0
 HeapDict==1.0.1
 html5lib==1.0.1
@@ -230,6 +232,7 @@ spyder-kernels==1.9.0
 spyder-terminal==0.3.0
 SQLAlchemy==1.3.15
 sqlparse==0.3.1
+static3==0.7.0
 statsmodels==0.11.0
 sympy==1.5.1
 tables==3.6.1
@@ -262,7 +265,6 @@ xmltodict==0.12.0
 yapf==0.28.0
 zict==2.0.0
 zipp==2.2.0
-
                                                             **NOTES**
 
 __**HOSTS**__
@@ -270,3 +272,6 @@ If you want to experiment with a friendly domain name instead of using localhost
 
 __**DJANGO**__
 The book uses an older version and **django.contrib.auth.views import login** has been depricated. Instead, use  **django.contrib.auth.views import LoginView**
+
+__**BOOTSTRAP**__
+The book uses Bootstrap 3 which isn't the lastest Bootstrap version. Version 3 documentation can be found here: https://bootstrapdocs.com/v3.0.3/docs/components/#glyphicons
