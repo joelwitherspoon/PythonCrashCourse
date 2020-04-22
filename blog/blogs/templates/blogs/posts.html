@@ -1,20 +1,30 @@
 {% extends "blogs/base.html" %}
+<!--Ch20 problem 2 Stylish Blog-->
+{% load bootstrap3 %}
+
+{%block header%}
+
+    <h1>
+            <span class="glyphicon glyphicon-th"></span>
+            Posts
+    </h1>
+
+{% endblock header%}
 
 {% block content %}
 
-    <p>Posts</p>
-    
-    <ul>
-        {% for post in posts %}
-            <li>
-                <a href="{% url 'blogs:post' post.id %}"> {{ post }} </a>
-            </li>
-        {% empty %}
-            <li>
-                No posts have been added yet
-            </li>
-        {% endfor %}
-    </ul>
+    <div class="list-group">
+
+            {% for post in posts %}
+
+                    <a href="{% url 'blogs:post' post.id %}"  class="list-group-item"> {{ post }} </a>
+            {% empty %}
+
+                    No posts have been added yet
+
+            {% endfor %}
+        
+    </div>
     <a href="{% url 'blogs:new_post' %}">Add a new post:</a>
     
 {% endblock content %}

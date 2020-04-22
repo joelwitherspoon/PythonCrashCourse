@@ -1,7 +1,23 @@
 {% extends "blogs/base.html" %}
+<!--Ch20 problem 2 Stylish Blog-->
+{% load bootstrap3 %}
+
+{%block header%}
+
+    <div class='jumbotron'>
+        <h1>
+            <span class="glyphicon glyphicon-fire"></span>
+            Your Blog
+        </h1>
+    </div>
+
+{% endblock header%}
 
 {% block content %}
-<p>This is my blog</p>
-
-<p> This is the index page for the Blogs</p>
+    <h2>
+        <a href="{% url 'blogusers:register' %}"> Register an account</a> to make your own blog, and post what you know and don't know.
+    </h2>
+    <h2>
+        Whenever you learn something new, make an entry here
+    </h2>
 {% endblock content %}

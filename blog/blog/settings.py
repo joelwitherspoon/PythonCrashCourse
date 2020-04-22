@@ -38,6 +38,9 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     
+    #Third party apps
+    'bootstrap3',
+    
     #My Apps
     'blogs',
     'blogusers',
@@ -122,3 +125,14 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.0/howto/static-files/
 
 STATIC_URL = '/static/'
+
+#My Settings
+#This is for the redirect of login_required
+LOGIN_URL = '/blogusers/login/'
+
+#Settings for django-bootstrap3
+BOOTSTRAP3 = {
+    'include_jquery':True,
+    
+    }
+

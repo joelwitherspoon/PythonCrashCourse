@@ -38,15 +38,16 @@ def post(request,blogpost_id):
 def new_post(request):
     """Add a new post"""
     
-    post = Blogposts.object.get(id=blogpost_id)
     if request.method != 'POST':
         #No data submitted create a blank form
         form = BlogPostForm()
     else:
         #Post submitted, process data
         form = BlogPostForm(data=request.POST)
-        if form.is_valid() and (post.owner == request.user):
-            form.save()
+        if form.is_valid():
+            new_post = form.save(commit=False)
+            new_post.owner = request.user 
+            new_post.save()
             return HttpResponseRedirect(reverse('blogs:posts'))
         
     context = {'form':form}

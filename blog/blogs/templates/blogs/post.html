@@ -1,27 +1,39 @@
 {% extends "blogs/base.html" %}
+<!--Ch20 problem 2 Stylish Blog-->
+{% load bootstrap3 %}
+
+{%block header%}
+
+    <h1>
+            <span class="glyphicon glyphicon-th-large"></span>
+            Post
+    </h1>
+
+{% endblock header%}
+
 
 {% block content %}
 
-    <p>Post: {{ post }} </p>
-    
-    <ul>
-        {% if post %}
-        <li>
-            <p>
-                {{ post.title }}
-            </p>
-            <p>
-                {{ post.text }}
-            </p>
-            <p>
-                <a href="{% url 'blogs:edit_post' post.id  %}">Edit Post</a>
-            </p>
-        </li>
-        {% else %}
-        <li>
-            <p>No entries for this topic yet</p>
-        </li>
-        {% endif %}
-    </ul>
+<div class="panel panel-default">
+    {% if post %}
+    <div class="panel-heading">
+
+        <h2> 
+            {{post.title}}
+        </h2>
+
+    </div>
+    <div class="panel-body">
+        {{ post.text }}<br/>
+        <hr style="width:50%;text-align:left;margin-left:0">
+            {{post.date_added|date:'M d, Y H:i'}}   
+    </div>
+    <a href="{% url 'blogs:edit_post' post.id  %}">Edit Post</a>
+    {% else %}
+    <div class="panel-heading"
+        <h2>No posts yet</h2>
+    </div>
+    {% endif %}
+</div>
     
 {% endblock content %}
