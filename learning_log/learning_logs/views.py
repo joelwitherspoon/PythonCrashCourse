@@ -1,10 +1,9 @@
-from django.shortcuts import render
+from django.shortcuts import render,get_object_or_404
 from django.http import HttpResponseRedirect, Http404
 from django.urls import reverse
 from django.contrib.auth.decorators import login_required
 
 
-from users.check_topic_owner import check_topic_owner
 from .models import Topic,Entry
 from .forms import TopicForm,EntryForm
 
@@ -25,7 +24,7 @@ def topics(request):
 @login_required
 def topic(request,topic_id):
     """Show singular topic"""
-    topic = Topic.objects.get(id=topic_id)
+    topic = get_object_or_404(Topic,id=topic_id)
 	#Make sure the topic belongs to the current user.
     #Chapter 19 -3 refactoring
     check_topic_owner(topic.owner,request.user)
@@ -56,7 +55,7 @@ def new_topic(request):
 def new_entry(request, topic_id):
     """Add a new entry"""
     topic = Topic.objects.get(id=topic_id)
-    
+    check_topic_owner(topic.owner,request.user)
     if  request.method != 'POST':
         #No data submitted; create a blank form
         form = EntryForm()
@@ -100,6 +99,10 @@ def edit_entry(request,entry_id):
     return render(request,'learning_logs/edit_entry.html',context)
     
         
-        
+def check_topic_owner(owner, user):
+    """Check is the current logged in user is the topic owner"""
+    
+    if owner != user:
+        raise Http404        
         
         
