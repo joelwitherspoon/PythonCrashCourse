@@ -3,13 +3,10 @@ from django.http import HttpResponseRedirect,Http404
 from django.urls import reverse
 from django.contrib.auth.decorators import login_required
 
-
-
 # Create your views here.
 
 from .models import BlogPost
 from .forms import BlogPostForm
-from blogusers.check_blog_owner import check_blog_owner
 
 def index(request):
     """The home page for blogs"""
@@ -81,4 +78,10 @@ def edit_post(request,blogpost_id):
                'form':form }
     return render(request, 'blogs/edit_post.html', context)
     
-        
+def check_blog_owner(owner, user):
+    """Check is the current logged in user is the topic owner"""
+    
+    if owner != user:
+        raise Http404
+    else:
+        pass         

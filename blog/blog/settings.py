@@ -23,9 +23,9 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = '!6qwh$csnz)+3c0bt098dh!e84^w659e&y2sdnk!^!vx!9!qz9'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = ['localhost', '127.0.0.1', '[::1]','joelw.org']
+ALLOWED_HOSTS = ['localhost', '127.0.0.1', '[::1]','joelw.org','yourblog1138.herokuapp.com']
 
 
 # Application definition
@@ -61,7 +61,8 @@ ROOT_URLCONF = 'blog.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [os.path.join(BASE_DIR, 'blog/templates')],
+        #'DIRS': [],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -136,3 +137,23 @@ BOOTSTRAP3 = {
     
     }
 
+# Heroku settings
+cwd=os.getcwd()
+if cwd=='/app' or cwd[:4]=='/tmp':
+	import dj_database_url
+	DATABASES={
+	'default':dj_database_url.config(default='postgres://localhost')
+	}
+
+	#Honor the 'X-Forwarded-Proto' header for request.is_secure().
+	SECURE_PROXY_SSL_HEADER=('HTTP_X_FORWARDED_PROTO','https')
+
+	#Allowallhostheaders.
+	ALLOWED_HOSTS=['yourblog1138.herokuapp.com']
+
+	#Static asset configuration
+	BASE_DIR=os.path.dirname(os.path.abspath(__file__))
+	STATIC_ROOT='staticfiles'
+	STATICFILES_DIRS=(
+	os.path.join(BASE_DIR,'static')
+	)

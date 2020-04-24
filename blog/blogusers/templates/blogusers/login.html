@@ -13,11 +13,7 @@
 
 {% block content %}
 
-    {% if form.errors %}
-    <div class="alert alert-danger">
-         alert(message);
-    </div>
-    {%endif%}
+
     
     <form method="post" action="{% url 'blogusers:login' %}" class="form">
         {% csrf_token %}
