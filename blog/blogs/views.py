@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render,get_object_or_404
 from django.http import HttpResponseRedirect,Http404
 from django.urls import reverse
 from django.contrib.auth.decorators import login_required
@@ -24,7 +24,7 @@ def posts(request):
 @login_required
 def post(request,blogpost_id):
     """Show a single post"""
-    post = BlogPost.objects.get(id=blogpost_id)
+    post = get_object_or_404(BlogPost, id=blogpost_id)
     #Only allow blog owner to see post
     check_blog_owner(post.owner,request.user)
     context={'post':post}
@@ -54,7 +54,7 @@ def new_post(request):
 @login_required
 def edit_post(request,blogpost_id):
     """Edit a post"""
-    post = BlogPost.objects.get(id=blogpost_id)
+    post = get_object_or_404(BlogPost,id=blogpost_id)
     title = post.title
     text = post.text
     check_blog_owner(post.owner,request.user)
