@@ -12,8 +12,12 @@ https://docs.djangoproject.com/en/3.0/ref/settings/
 
 import os
 
+
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+PROJECT_ROOT = os.path.dirname(os.path.abspath(__file__))
+
+
 
 
 # Quick-start development settings - unsuitable for production
@@ -126,6 +130,8 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.0/howto/static-files/
 
 STATIC_URL = '/static/'
+STATIC_ROOT = 'staticfiles'
+
 
 #My Settings
 #This is for the redirect of login_required
@@ -138,22 +144,12 @@ BOOTSTRAP3 = {
     }
 
 # Heroku settings
-cwd=os.getcwd()
-if cwd=='/app' or cwd[:4]=='/tmp':
-	import dj_database_url
-	DATABASES={
-	'default':dj_database_url.config(default='postgres://localhost')
-	}
 
-	#Honor the 'X-Forwarded-Proto' header for request.is_secure().
-	SECURE_PROXY_SSL_HEADER=('HTTP_X_FORWARDED_PROTO','https')
 
-	#Allowallhostheaders.
-	ALLOWED_HOSTS=['yourblog1138.herokuapp.com']
+import django_heroku
+django_heroku.settings(locals())
 
-	#Static asset configuration
-	BASE_DIR=os.path.dirname(os.path.abspath(__file__))
-	STATIC_ROOT='staticfiles'
-	STATICFILES_DIRS=(
-	os.path.join(BASE_DIR,'static')
-	)
+
+#print base directory
+print ("base dir path", BASE_DIR)
+print ("project root path",PROJECT_ROOT)
