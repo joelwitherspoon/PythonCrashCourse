@@ -2,6 +2,8 @@ from django.shortcuts import render,get_object_or_404
 from django.http import HttpResponseRedirect, Http404
 from django.urls import reverse
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth.models import AnonymousUser
+from django.db.models import Q
 
 
 from .models import Topic,Entry
@@ -13,21 +15,27 @@ def index(request):
     """The home page for Learning Log"""
     return render(request, 'learning_logs/index.html')
 
-@login_required
+
 def topics(request):
     """Show all topics"""
-    
-    topics = Topic.objects.filter(owner=request.user).order_by('date_added')
-    context = {'topics':topics}
+    #Not a smart way to iterate but it works
+    if not request.user.is_authenticated:
+        topics = Topic.objects.filter(Q(is_public =True))\
+                                      .order_by('date_added')
+    elif request.user.is_authenticated:
+        topics = Topic.objects.filter(Q(owner=request.user)\
+                                      | Q(is_public=True))\
+                                      .order_by('date_added')
+        context = {'topics':topics}
     return render(request, 'learning_logs/topics.html',context)
 
-@login_required
+
 def topic(request,topic_id):
     """Show singular topic"""
     topic = get_object_or_404(Topic,id=topic_id)
 	#Make sure the topic belongs to the current user.
     #Chapter 19 -3 refactoring
-    check_topic_owner(topic.owner,request.user)
+    #check_topic_owner(topic.owner,request.user)
 
     entries = topic.entry_set.order_by('-date_added')
     context = {'topic':topic,'entries':entries}
@@ -81,7 +89,7 @@ def edit_entry(request,entry_id):
     entry = Entry.objects.get(id=entry_id)
     topic = entry.topic
     #Chapter 19 -3 refactoring
-    check_topic_owner(topic.owner,request.user)
+    #check_topic_owner(topic.owner,request.user)
     
     if request.method != 'POST':
         #Initial request. Prefill form with current entry

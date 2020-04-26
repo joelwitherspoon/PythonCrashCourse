@@ -9,6 +9,7 @@ class BlogPost(models.Model):
         text = models.TextField()
         date_added = models.DateTimeField(auto_now_add=True)
         owner = models.ForeignKey(User,on_delete=models.CASCADE)
+        is_public = models.BooleanField(default=False)
         
         class Meta:
             verbose_name_plural = 'blogposts'

@@ -5,8 +5,9 @@ from .models import Topic, Entry
 class TopicForm(forms.ModelForm):
     class Meta:
         model = Topic
-        fields = ['text']
-        labels = {'text': ''}
+        fields = ['text','is_public']
+        labels = {'text': '','is_public':'Public topic?'}
+        widgets = {'is_public':forms.CheckboxInput}
         
 class EntryForm(forms.ModelForm):
     class Meta:
