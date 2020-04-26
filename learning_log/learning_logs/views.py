@@ -26,7 +26,7 @@ def topics(request):
         topics = Topic.objects.filter(Q(owner=request.user)\
                                       | Q(is_public=True))\
                                       .order_by('date_added')
-        context = {'topics':topics}
+    context = {'topics':topics}
     return render(request, 'learning_logs/topics.html',context)
 
 
