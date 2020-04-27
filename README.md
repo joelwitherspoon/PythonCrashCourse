@@ -273,10 +273,24 @@ __**HOSTS**__
 If you want to experiment with a friendly domain name instead of using localhosts:8000, update your hosts file using the following syntax for example: joelw  127.0.0.1. That will resolve localhost to joelw. You'll still need to type the port number at the end.
 
 __**DJANGO**__
-The book uses an older version and **django.contrib.auth.views import login** has been depricated. Instead, use  **django.contrib.auth.views import LoginView**
+The book uses an older version and 
+```python
+from django.contrib.auth.views import login
+``` 
+has been depricated. Instead, use
+```python
+from django.contrib.auth.views import LoginView
+```
 
 __**BOOTSTRAP**__
 The book uses Bootstrap 3 which isn't the lastest Bootstrap version. Version 3 documentation can be found here: https://bootstrapdocs.com/v3.0.3/docs/components/#glyphicons
 
 __**HEROKU**__
 Heroku will send you to the browser to login and return that auth to the CLI. Set the buildpack at heroku create --buildpack heroku/python
+
+I found that modifying settings.py for Heroku as listed in the book didn't work for me. Instead, I installed django-heroku andused the following two lines that were found at https://devcenter.heroku.com/articles/django-app-configuration
+
+```python
+import django-heroku
+django_heroku.settings(locals())
+```
